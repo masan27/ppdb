@@ -1,0 +1,29 @@
+
+@media screen and (max-width: 1700px){}
+@media screen and (max-width: 1400px){}
+@media screen and (max-width: 1200px){}
+@media screen and (max-width: 768px){}
+@media screen and (max-width: 680px){}
+@media screen and (max-width: 580px){}
+@media screen and (max-width: 500px){
+	.rekening{
+		max-height: 75px !important;		
+	}
+	.norek{
+		font-size: 30px !important;
+		top: 3px !important;		
+	}
+}
+@media screen and (max-width: 480px){}
+@media screen and (max-width: 400px){
+	.rekening{
+		max-height: 75px !important;		
+	}
+	.norek{
+		font-size: 27px !important;
+		top: 5px !important;		
+	}
+}
+@media screen and (max-width: 320px){}
+
+

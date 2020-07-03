@@ -1,0 +1,1 @@
+<h1>Bukti pembayaran anda telah diterima</h1>
