@@ -38,10 +38,22 @@
                         </div>
                     <?php endif; ?>
 
+                    <?php if ($this->session->flashdata('danger')) : ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo $this->session->flashdata('danger'); ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
+
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800"><?= $title ?></h1>
                     </div>
+
+                    <!-- call modal detail -->
+                    <?php include('detail.php') ?>
 
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
@@ -112,7 +124,8 @@
                                                 </td>
                                                 <td align="center">
                                                     <!-- <div class="btn-group"> -->
-                                                    <a href="<?php echo base_url('admin-panel/ppdb/detail/') . $item->id ?>" title="Detail" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url('panel-admin/ppdb/detail/') . $item->id ?>" title="Detail" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                    <a onclick="deleteConfirm('<?php echo base_url('panel-admin/ppdb/hapus/') . $item->id ?>')" href="#!" title="Hapus" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                     <!-- </div> -->
                                                 </td>
                                             </tr>
@@ -163,6 +176,12 @@
                 $(this).remove();
             });
         }, 1000);
+
+        window.onload = function() {
+            <?php if (isset($detail)) { ?>
+                $('#Detail').modal('show');
+            <?php } ?>
+        }
     </script>
 
 </body>

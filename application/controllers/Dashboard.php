@@ -72,7 +72,7 @@ class Dashboard extends CI_Controller
 
             if ($this->dashboard_model->daftar($input)) {
                 $this->session->set_flashdata('success', 'Pendaftaran Berhasil');
-                redirect(base_url('dashboard/tagihan'.$i->post('nisn')));
+                redirect(base_url('dashboard/tagihan/'.$i->post('nisn')));
             } else {
                 $this->session->set_flashdata('danger', 'Pendaftaran Gagal');
                 redirect(base_url('dashboard'));

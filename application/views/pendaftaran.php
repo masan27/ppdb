@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input type="text" required name="nama" class="form-control" placeholder="" value="<?php echo set_value('nama') ?>">
+                            <input type="text" required name="nama" class="form-control"  value="<?php echo set_value('nama') ?>">
                         </div>
                     </div>
 
@@ -81,21 +81,21 @@
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label>Email</label>
-                            <input type="text" required name="email" class="form-control" placeholder="name@email.com" value="<?php echo set_value('email') ?>">
+                            <input type="email" required name="email" class="form-control" value="<?php echo set_value('email') ?>">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label>Telepon</label>
-                            <input type="text" required name="telp" class="form-control" placeholder="083893361191" value="<?php echo set_value('telp') ?>">
+                            <input type="text" required name="telp" class="form-control" value="<?php echo set_value('telp') ?>">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label>Asal Sekolah</label>
-                            <input type="text" required name="asal_sekolah" class="form-control" placeholder="SMPN 31 Jakarta Pusat" value="<?php echo set_value('asal_sekolah') ?>">
+                            <input type="text" required name="asal_sekolah" class="form-control" value="<?php echo set_value('asal_sekolah') ?>">
                         </div>
                     </div>
 
@@ -109,21 +109,21 @@
                     <div class="col-md-12">
                         <div class="form-group ">
                             <label>NISN</label>
-                            <input type="text" required name="nisn" class="form-control" placeholder="" maxlength="20" value="<?php echo set_value('nisn') ?>">
+                            <input type="text" required name="nisn" class="form-control" maxlength="20" value="<?php echo set_value('nisn') ?>">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label>Nama Ayah</label>
-                            <input type="text" required name="nama_ayah" class="form-control" placeholder="" value="<?php echo set_value('nama_ayah') ?>">
+                            <input type="text" required name="nama_ayah" class="form-control" value="<?php echo set_value('nama_ayah') ?>">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label>Penghasilan Ayah</label>
-                            <select required name="gaji_ayah" class="form-control" required>
+                            <select required name="gaji_ayah" class="form-control">
                                 <option value="">Pilih Penghasilan..</option>
                                 <option value="500.000 - 2.000.000">500.000 - 2.000.000</option>
                                 <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
@@ -142,7 +142,7 @@
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label>Penghasilan Ibu</label>
-                            <select required name="gaji_ibu" class="form-control" required>
+                            <select required name="gaji_ibu" class="form-control">
                                 <option value="">Pilih Penghasilan..</option>
                                 <option value="500.000 - 2.000.000">500.000 - 2.000.000</option>
                                 <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>

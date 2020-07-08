@@ -27,11 +27,12 @@ class Ppdb extends CI_Controller
     public function detail($id)
     {
         $data = array(
-            'title' => 'Detail Siswa',
-            'ppdb' => $this->ppdb_model->list($id)
+            'title' => 'Siswa Baru',
+            'ppdb' => $this->ppdb_model->list(),
+            'detail' => $this->ppdb_model->list($id)
         );
 
-        $this->load->view('admin/ppdb/detail', $data);
+        $this->load->view('admin/ppdb/index', $data);
     }
 
     public function pending()
@@ -142,5 +143,25 @@ class Ppdb extends CI_Controller
             </script>
             ';
         }
+    }
+
+    public function hapus($id = false)
+    {
+
+        if ($id != false){
+            $this->ppdb_model->delete($id);
+            $this->session->set_flashdata('success',  'Data berhasil dihapus');
+            redirect(base_url('panel-admin/ppdb'));
+        }
+        else{
+            $this->session->set_flashdata('danger',  'Anda belum memilih siswa');
+        }
+        
+        $data = array(
+            'title' => 'Siswa Baru',
+            'ppdb' => $this->ppdb_model->list()
+        );
+
+        $this->load->view('admin/ppdb/index', $data);
     }
 }

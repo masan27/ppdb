@@ -50,9 +50,9 @@
 											<button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
 										</div>									
 
-										<?php if ($this->session->flashdata('message')) : ?>
+										<?php if ($this->session->flashdata('warning')) : ?>
 											<div class="alert alert-danger alert-dismissible fade show" role="alert">
-												<?php echo $this->session->flashdata('message'); ?>
+												<?php echo $this->session->flashdata('warning'); ?>
 												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
