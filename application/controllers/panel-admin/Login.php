@@ -32,9 +32,9 @@ class Login extends CI_Controller
             $login = $this->login_model->check($username, $password);
             if ($login) {
                 $sesi = array(
-                    'id' => $login->id,
+                    'id' => $login->id_user,
                     'user' => $login->username,
-                    'nama' => $login->nama,
+                    'nama' => $login->nama_user,
                 );
                 $this->session->set_userdata($sesi);
                 redirect(base_url('panel-admin/ppdb'));
@@ -42,7 +42,11 @@ class Login extends CI_Controller
                 $this->session->set_flashdata('warning', 'Username atau Password Salah,...');
             }
         }
-        $this->load->view('admin/login');
+        $data = array(
+            'title' => 'Login',
+            'pt' => $this->pengaturan_model->nama_perusahaan()
+        );
+        $this->load->view('admin/login', $data);
     }
 
     public function logout()

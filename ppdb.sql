@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jul 2020 pada 17.18
+-- Waktu pembuatan: 15 Jul 2020 pada 15.23
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.3.14
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `murid` (
-  `id` int(11) NOT NULL,
+  `id_murid` int(11) NOT NULL,
   `nama` varchar(25) NOT NULL,
   `umur` int(2) NOT NULL,
   `tanggal` date NOT NULL,
@@ -55,10 +55,26 @@ CREATE TABLE `murid` (
 -- Dumping data untuk tabel `murid`
 --
 
-INSERT INTO `murid` (`id`, `nama`, `umur`, `tanggal`, `tempat`, `alamat`, `agama`, `email`, `telp`, `asal_sekolah`, `alamat_asal_sekolah`, `nisn`, `nama_ayah`, `nama_ibu`, `gaji_ayah`, `gaji_ibu`, `alamat_ortu`, `bukti`, `waktu`, `admin`) VALUES
-(1, 'Achmad Naufal', 18, '1999-01-27', 'Jakarta', 'Jl. Letjend Sutoyo RT/RW 05/007 No. 7, Kelurahan Kebon Pala, Kecamatan Makasar, Jakarta Timur, 13650', '', 'achmad.naufal39@yahoo.com', '083819192912', 'SMPN 31 Jakarta Pusat', 'Jakarta Pusat', '1268162182', 'Secret', 'Tetep Secret', '2.000.000 - 4.000.00', 'Lebih dari 4.000.000', 'Cawang III', NULL, '2020-06-19 13:52:19', 1),
-(5, 'pdf tester', 18, '2019-12-31', 'ja', 'ja', 'islam', 'skasak', '1210921', 'dad', 'adas', '12324354', 'dwd', 'dwd', '1', '2', 'hbn ', 'HTU IRS.pdf', '2020-06-19 10:52:29', NULL),
-(6, 'shhds', 16, '2020-06-02', 'jkjakd', 'ndakjdna', 'isisai', 'jaoaish@gmail.com', '17319631', 'ldshdls', 'skjhdkjshd', '973293792', 'ldkjal', 'kwjkds', '91291', '297923', 'bskbkdsb', NULL, NULL, NULL);
+INSERT INTO `murid` (`id_murid`, `nama`, `umur`, `tanggal`, `tempat`, `alamat`, `agama`, `email`, `telp`, `asal_sekolah`, `alamat_asal_sekolah`, `nisn`, `nama_ayah`, `nama_ibu`, `gaji_ayah`, `gaji_ibu`, `alamat_ortu`, `bukti`, `waktu`, `admin`) VALUES
+(1, 'Achmad Naufal', 18, '1999-01-27', 'Jakarta', 'Jl. Letjend Sutoyo RT/RW 05/007 No. 7, Kelurahan Kebon Pala, Kecamatan Makasar, Jakarta Timur, 13650', '', 'achmad.naufal39@yahoo.com', '083819192912', 'SMPN 31 Jakarta Pusat', 'Jakarta Pusat', '1268162182', 'Secret', 'Tetep Secret', '2.000.000 - 4.000.00', 'Lebih dari 4.000.000', 'Cawang III', 'eastur1.png', '2020-06-19 13:52:19', 1),
+(6, 'shhds', 16, '2020-06-02', 'jkjakd', 'ndakjdna', 'isisai', 'jaoaish@gmail.com', '17319631', 'ldshdls', 'skjhdkjshd', '973293792', 'ldkjal', 'kwjkds', '91291', '297923', 'bskbkdsb', NULL, NULL, NULL),
+(7, 'test', 16, '2004-01-05', 'Jakarta', 'Jakarta', 'islam', 'test@gmail.com', '083819192912', 'SMPN 31 Jakarta Pusat', 'Jakarta', '1268112182', 'Secret', 'Tetep Secret', '2.000.000 - 4.000.00', '2.000.000 - 4.000.00', 'Jakarta', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `id_pembayaran` int(3) NOT NULL,
+  `nisn_pembayaran` varchar(20) NOT NULL,
+  `bukti_pembayaran` varchar(50) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `waktu_pembayaran` timestamp NOT NULL DEFAULT current_timestamp(),
+  `waktu_validasi` timestamp NULL DEFAULT NULL,
+  `admin` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -67,7 +83,7 @@ INSERT INTO `murid` (`id`, `nama`, `umur`, `tanggal`, `tempat`, `alamat`, `agama
 --
 
 CREATE TABLE `pengaturan` (
-  `id` int(10) NOT NULL,
+  `id_pengaturan` int(10) NOT NULL,
   `opsi` varchar(50) NOT NULL,
   `nilai` varchar(250) DEFAULT NULL,
   `aktif` enum('Y','N') NOT NULL DEFAULT 'Y',
@@ -78,7 +94,7 @@ CREATE TABLE `pengaturan` (
 -- Dumping data untuk tabel `pengaturan`
 --
 
-INSERT INTO `pengaturan` (`id`, `opsi`, `nilai`, `aktif`, `urutan`) VALUES
+INSERT INTO `pengaturan` (`id_pengaturan`, `opsi`, `nilai`, `aktif`, `urutan`) VALUES
 (1, 'nama_perusahaan', 'PPDB SMA PGRI', 'Y', 1),
 (2, 'harga_pendaftaran', '2800000', 'Y', NULL),
 (3, 'rekening', '7372323228', 'Y', NULL),
@@ -91,17 +107,17 @@ INSERT INTO `pengaturan` (`id`, `opsi`, `nilai`, `aktif`, `urutan`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id_user` int(2) NOT NULL,
   `username` varchar(25) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `nama` varchar(25) NOT NULL
+  `nama_user` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `nama`) VALUES
+INSERT INTO `user` (`id_user`, `username`, `password`, `nama_user`) VALUES
 (1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Administrator');
 
 --
@@ -112,7 +128,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `nama`) VALUES
 -- Indeks untuk tabel `murid`
 --
 ALTER TABLE `murid`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_murid`),
   ADD UNIQUE KEY `nisn` (`nisn`),
   ADD KEY `admin` (`admin`);
 
@@ -120,13 +136,13 @@ ALTER TABLE `murid`
 -- Indeks untuk tabel `pengaturan`
 --
 ALTER TABLE `pengaturan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_pengaturan`);
 
 --
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -136,19 +152,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `murid`
 --
 ALTER TABLE `murid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_murid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengaturan`
 --
 ALTER TABLE `pengaturan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pengaturan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -158,7 +174,7 @@ ALTER TABLE `user`
 -- Ketidakleluasaan untuk tabel `murid`
 --
 ALTER TABLE `murid`
-  ADD CONSTRAINT `murid_ibfk_1` FOREIGN KEY (`admin`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `murid_ibfk_1` FOREIGN KEY (`admin`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -124,8 +124,8 @@
                                                 </td>
                                                 <td align="center">
                                                     <!-- <div class="btn-group"> -->
-                                                    <a href="<?php echo base_url('panel-admin/ppdb/detail/') . $item->id ?>" title="Detail" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
-                                                    <a onclick="deleteConfirm('<?php echo base_url('panel-admin/ppdb/hapus/') . $item->id ?>')" href="#!" title="Hapus" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?php echo base_url('panel-admin/ppdb/detail/') . $item->id_murid ?>" title="Detail" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                    <a onclick="deleteConfirm('<?php echo base_url('panel-admin/ppdb/hapus/') . $item->id_murid ?>')" href="#!" title="Hapus" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                     <!-- </div> -->
                                                 </td>
                                             </tr>

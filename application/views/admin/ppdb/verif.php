@@ -98,7 +98,7 @@
                                                 </td>
                                                 <td align="center">
                                                     <!-- <div class="btn-group"> -->
-                                                    <a href="<?php echo base_url('panel-admin/ppdb/verif/') . $item->id ?>" title="Verifikasi" class="btn btn-success btn-sm"><i class="fa fa-check"></i></a>
+                                                    <a href="<?php echo base_url('panel-admin/ppdb/verif/') . $item->id_murid ?>" title="Verifikasi" class="btn btn-success btn-sm"><i class="fa fa-check"></i></a>
                                                     <!-- </div> -->
                                                 </td>
                                             </tr>

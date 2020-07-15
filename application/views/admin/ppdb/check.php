@@ -22,7 +22,7 @@
                     echo validation_errors('<div class="alert alert-warning">', '</div>');
 
                     // Form buka 
-                    echo form_open(base_url('panel-admin/ppdb/mail/' . $check->id));
+                    echo form_open(base_url('panel-admin/ppdb/mail/' . $check->id_murid));
                     ?>
 
                     <div class="row">
