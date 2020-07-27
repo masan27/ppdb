@@ -37,6 +37,16 @@ class Ppdb_model extends CI_Model
         return $query->result();
     }
 
+    public function valid()
+    {
+        $this->db->join('user as user', 'user.id_user = murid.admin');
+        $this->db->where('bukti !=', NULL);
+        $this->db->where('admin !=', NULL);
+        $this->db->order_by('waktu', 'ASC');
+        $query = $this->db->get('murid as murid');
+        return $query->result();
+    }
+
     public function check($id)
     {
         $this->db->where('id_murid', $id);

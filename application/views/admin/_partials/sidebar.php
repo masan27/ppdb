@@ -37,8 +37,15 @@
 
 		<li class="nav-item <?php echo strstr($this->uri->uri_string(), '/verif') ? 'active' : '' ?>">
 			<a class="nav-link" href="<?php echo base_url('panel-admin/ppdb/verif') ?>">
-				<i class="fas fa-fw fa-check"></i>
+				<i class="fas fa-fw fa-money-check-alt"></i>
 				<span>Verifikasi</span>
+			</a>
+		</li>
+
+		<li class="nav-item <?php echo strstr($this->uri->uri_string(), '/valid') ? 'active' : '' ?>">
+			<a class="nav-link" href="<?php echo base_url('panel-admin/ppdb/valid') ?>">
+				<i class="fas fa-fw fa-check"></i>
+				<span>Valid</span>
 			</a>
 		</li>
 		

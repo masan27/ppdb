@@ -64,8 +64,94 @@ class Ppdb extends CI_Controller
         $this->load->view('admin/ppdb/verif', $data);
     }
 
+    public function valid($id = false)
+    {
+
+        $data = array(
+            'title' => 'Valid',
+            'ppdb' => $this->ppdb_model->valid()
+        );
+
+        $this->load->view('admin/ppdb/valid', $data);
+    }
+
+    protected function hari()
+    {
+        $hari = array(
+            1 =>    'Senin',
+            'Selasa',
+            'Rabu',
+            'Kamis',
+            'Jumat',
+            'Sabtu',
+            'Minggu'
+        );
+        $sekarang = $hari[date('N')];
+        return $sekarang;
+    }
+
+    protected function tanggal($tanggal)
+    {
+        $bulan = array(
+            1 =>   'Januari',
+            'Febuari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $split = explode('-', $tanggal);
+        return $split[0] . ' ' . $bulan[(int) $split[1]] . ' ' . $split[2];
+    }
+
+    protected function penyebut($nilai)
+    {
+        $nilai = abs($nilai);
+        $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+        $temp = "";
+        if ($nilai < 12) {
+            $temp = " " . $huruf[$nilai];
+        } else if ($nilai < 20) {
+            $temp = $this->penyebut($nilai - 10) . " belas";
+        } else if ($nilai < 100) {
+            $temp = $this->penyebut($nilai / 10) . " puluh" . $this->penyebut($nilai % 10);
+        } else if ($nilai < 200) {
+            $temp = " seratus" . $this->penyebut($nilai - 100);
+        } else if ($nilai < 1000) {
+            $temp = $this->penyebut($nilai / 100) . " ratus" . $this->penyebut($nilai % 100);
+        } else if ($nilai < 2000) {
+            $temp = " seribu" . $this->penyebut($nilai - 1000);
+        } else if ($nilai < 1000000) {
+            $temp = $this->penyebut($nilai / 1000) . " ribu" . $this->penyebut($nilai % 1000);
+        } else if ($nilai < 1000000000) {
+            $temp = $this->penyebut($nilai / 1000000) . " juta" . $this->penyebut($nilai % 1000000);
+        } else if ($nilai < 1000000000000) {
+            $temp = $this->penyebut($nilai / 1000000000) . " miliar" . $this->penyebut(fmod($nilai, 1000000000));
+        } else if ($nilai < 1000000000000000) {
+            $temp = $this->penyebut($nilai / 1000000000000) . " triliun" . $this->penyebut(fmod($nilai, 1000000000000));
+        }
+        return $temp;
+    }
+
+    protected function terbilang($nilai)
+    {
+        if ($nilai < 0) {
+            $hasil = "minus " . trim($this->penyebut($nilai));
+        } else {
+            $hasil = trim($this->penyebut($nilai));
+        }
+        return $hasil;
+    }
+
     public function mail($id)
     {
+        $terbilang = $this->terbilang($this->pengaturan_model->harga()) . ' RUPIAH';
 
         if ($id != NULL || $id != false) {
             // get data siswa
@@ -75,9 +161,93 @@ class Ppdb extends CI_Controller
             // make pdf
             $this->load->library('pdf');
             $dompdf = $this->pdf;
-            $dompdf->load_html(
-                '<h1>Bukti pembayaran anda telah diterima</h1>'
-            );
+            $dompdf->set_option('isRemoteEnabled', true);
+            $dompdf->load_html('
+            <link href="' . base_url('assets/sb-admin2/css/sb-admin-2.min.css') . '" rel="stylesheet">
+
+<style>
+    .img {
+        width: 30% !important;        
+    }
+
+    .sekolah {
+        width: 70% !important;        
+    }
+
+    .table {
+        padding-top: 120px;
+        line-height: 90%;
+    }
+
+    .harga {
+        width: 50% !important;
+    }
+
+    .ttd {
+        width: 40% !important;
+    }
+
+    .tgl {
+        width: 100%;
+        margin-left: 60px;
+        border-bottom: 1px dotted black;
+    }
+</style>
+
+<div class="card-body">
+    <div class="img float-left">
+        <img src="' . base_url('assets/pendukung/logo.png') . '" alt="logo" class="img-fluid ml-5" width="57%">
+    </div>
+    <div class="sekolah float-left text-center font-weight-bold">
+        <h3>KUITANSI SMA</h3>
+        <u>
+            <h5>USWATUN HASANAH PINANG RANTI</h5>
+        </u>
+        <p class="font-weight-normal">No : ...............................</p>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-borderless" width="100%">
+            <tr>
+                <td width="30%">Sudah diterima dari</td>
+                <td width="1%">:</td>
+                <td class="border-bottom">' . $check->nama . '</td>
+            </tr>
+            <tr>
+                <td>Terbilang</td>
+                <td>:</td>
+                <td class="border-bottom">' . strtoupper($terbilang) . '</td>
+            </tr>
+            <tr>
+                <td rowspan="3">Perihal</td>
+                <td rowspan="3">:</td>
+                <td class="border-bottom">Pembayaran Pendaftaran Sekolah</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+    <div class="harga float-left">
+        Rp. <span class="font-weight-bold h3">
+            &nbsp;<span style="border-bottom: 1px solid black">' . number_format($this->pengaturan_model->harga()) . '</span>
+        </span>
+
+    </div>
+    <div class="ttd float-right pt-5">
+        Jakarta,<div class="tgl float-left text-left">' . $this->hari(date('N')) . " " . $this->tanggal(date('d-m-Y')) . '</div>
+        <div class="text-right">Bendahara SMA &nbsp;</div>
+        <br><br>
+        <div class="text-right">(.............................)</div>
+        <div class="pt-5 text-right">
+        <small>Data ini dibuat pada: ' . date('Y-m-d H:i:s') . '</small>
+    </div>
+    </div>
+</div>
+                
+            ');
             $dompdf->render();
             $pdf = $dompdf->output();
             $file_location = './upload/pdfcoba' . $check->nisn . '.pdf';
@@ -148,20 +318,45 @@ class Ppdb extends CI_Controller
     public function hapus($id = false)
     {
 
-        if ($id != false){
+        if ($id != false) {
             $this->ppdb_model->delete($id);
             $this->session->set_flashdata('success',  'Data berhasil dihapus');
             redirect(base_url('panel-admin/ppdb'));
-        }
-        else{
+        } else {
             $this->session->set_flashdata('danger',  'Anda belum memilih siswa');
         }
-        
+
         $data = array(
             'title' => 'Siswa Baru',
             'ppdb' => $this->ppdb_model->list()
         );
 
         $this->load->view('admin/ppdb/index', $data);
+    }
+
+    public function print()
+    {
+        $this->load->library('Pdf_v');
+        $data = array(
+            'title' => 'Valid',
+            'ppdb' => $this->ppdb_model->valid(),
+            'pt' => $this->pengaturan_model->nama_perusahaan()
+        );
+        $file = 'Rekap Pendaftaran Siswa ' . date('d-m-Y') . '.pdf';
+        $this->pdf_v->setPaper('A4', 'landscape');
+        // $this->pdf_v->setPaper('A4', 'potrait');
+        $this->pdf_v->set_option('isRemoteEnabled', true);
+        $this->pdf_v->filename = $file;
+
+        $this->pdf_v->load_view("admin/ppdb/print", $data);
+    }
+
+    public function pdf()
+    {
+        $this->load->library('Pdf_v');
+        $this->pdf_v->setPaper('A4', 'potrait');
+        $this->pdf_v->set_option('isRemoteEnabled', true);
+        // $this->pdf_v->filename = $file;
+        $this->pdf_v->load_view('admin/ppdb/pdf');
     }
 }

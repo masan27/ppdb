@@ -38,15 +38,27 @@
                         </div>
                     <?php endif; ?>
 
+                    <?php if ($this->session->flashdata('danger')) : ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo $this->session->flashdata('danger'); ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
+
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800"><?= $title ?></h1>
                     </div>
 
+                    <!-- call modal detail -->
+                    <?php include('detail.php') ?>
+
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="font-weight-bold text-primary" style="display: inline-block; margin-right: 1em;">Daftar <?= $title ?> Siswa</h6>
+                            <h6 class="font-weight-bold text-primary" style="display: inline-block; margin-right: 1em;">Daftar <?= $title ?></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -58,6 +70,9 @@
                                             <th>NISN</th>
                                             <th>Email</th>
                                             <th>Telepon</th>
+                                            <th>Bayar</th>
+                                            <th>Acc</th>
+                                            <th width="55px">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -67,6 +82,9 @@
                                             <th>NISN</th>
                                             <th>Email</th>
                                             <th>Telepon</th>
+                                            <th>Bayar</th>
+                                            <th>Acc</th>
+                                            <th>&nbsp;</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -90,8 +108,24 @@
                                                 <td>
                                                     <?php echo $item->telp ?>
                                                 </td>
-                                                <td>
-                                                    <a onclick="deleteConfirm('<?php echo base_url('panel-admin/ppdb/hapus/') . $item->id_murid ?>')" href="#!" title="Hapus" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                <td align="center">
+                                                    <?php
+                                                    if ($item->bukti != NULL) {
+                                                        echo 'Y';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php
+                                                    if ($item->admin != NULL) {
+                                                        echo 'Y';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td align="center">
+                                                    <!-- <div class="btn-group"> -->
+                                                    <a href="<?php echo base_url('panel-admin/ppdb/print')?>" title="Print" class="btn btn-info btn-sm"><i class="fa fa-print"></i></a>                                                    
+                                                    <!-- </div> -->
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -141,6 +175,12 @@
                 $(this).remove();
             });
         }, 1000);
+
+        window.onload = function() {
+            <?php if (isset($detail)) { ?>
+                $('#Detail').modal('show');
+            <?php } ?>
+        }
     </script>
 
 </body>
